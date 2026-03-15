@@ -13,7 +13,7 @@ class CameraPublisher(Node):
         self.cap = cv2.VideoCapture(0)
         self.bridge = CvBridge()
 
-        timer_period = 0.1
+        timer_period = 1.0
         self.timer = self.create_timer(timer_period, self.timer_callback)
 
     def timer_callback(self):
