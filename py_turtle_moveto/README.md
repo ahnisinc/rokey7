@@ -8,7 +8,7 @@ ros2 run py_turtle_moveto move_turtle_server
 ros2 run py_turtle_moveto move_turtle_client
 
 # 4. ros2 action send_goal 명령으로도 직접 테스트
-ros2 action send_goal /tutle1/move_turtle my_robot_interfaces/action/MoveTurtle "{x: 8.0, y: 8.0}"
+ros2 action send_goal /turtle1/move_turtle my_robot_interfaces/action/MoveTurtle "{x: 8.0, y: 8.0}"
 
 ### Action 정의
 
