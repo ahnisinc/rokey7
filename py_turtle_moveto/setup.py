@@ -26,6 +26,8 @@ setup(
         'console_scripts': [
             'move_turtle_action_server = py_turtle_moveto.move_turtle_action_server:main',
             'move_turtle_action_client = py_turtle_moveto.move_turtle_action_client:main',
+            'move_turtle_server = py_turtle_moveto.move_turtle_server:main',
+            'move_turtle_client = py_turtle_moveto.move_turtle_client:main',
         ],
     },
 )

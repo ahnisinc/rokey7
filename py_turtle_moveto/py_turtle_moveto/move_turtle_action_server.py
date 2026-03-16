@@ -7,24 +7,27 @@ from geometry_msgs.msg import Twist
 from turtlesim.msg import Pose
 from my_robot_interfaces.action import MoveTurtle  # 생성한 액션 인터페이스 import
 
+
 class MoveTurtleActionServer(Node):
 
     def __init__(self):
-        super().__init__('move_turtle_action_server')
+        super().__init__("move_turtle_action_server")
         self._action_server = ActionServer(
-            self,
-            MoveTurtle,
-            '/turtle1/move_turtle',
-            self.execute_callback)
-        self.pose_sub = self.create_subscription(Pose, '/turtle1/pose', self.pose_callback, 10)
-        self.cmd_pub = self.create_publisher(Twist, '/turtle1/cmd_vel', 10)
+            self, MoveTurtle, "/turtle1/move_turtle", self.execute_callback
+        )
+        self.pose_sub = self.create_subscription(
+            Pose, "/turtle1/pose", self.pose_callback, 10
+        )
+        self.cmd_pub = self.create_publisher(Twist, "/turtle1/cmd_vel", 10)
         self.current_pose = Pose()
 
     def pose_callback(self, msg):
         self.current_pose = msg
 
     async def execute_callback(self, goal_handle):
-        self.get_logger().info(f'Goal received: x={goal_handle.request.x}, y={goal_handle.request.y}')
+        self.get_logger().info(
+            f"Goal received: x={goal_handle.request.x}, y={goal_handle.request.y}"
+        )
         feedback_msg = MoveTurtle.Feedback()
         goal_x = goal_handle.request.x
         goal_y = goal_handle.request.y
@@ -58,7 +61,7 @@ class MoveTurtleActionServer(Node):
         goal_handle.succeed()
         result = MoveTurtle.Result()
         result.success = success
-        self.get_logger().info('Goal completed!')
+        self.get_logger().info("Goal completed!")
         return result
 
 
@@ -69,5 +72,6 @@ def main(args=None):
     node.destroy_node()
     rclpy.shutdown()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()
