@@ -3,6 +3,7 @@ from rclpy.node import Node
 from rclpy.action import ActionServer
 from my_robot_interfaces.action import SwitchControl
 
+import time
 import asyncio
 
 
@@ -13,8 +14,10 @@ class SwitchActionServer(Node):
             self, SwitchControl, "switch_control", self.execute_callback
         )
 
-    async def execute_callback(self, goal_handle):
+    def execute_callback(self, goal_handle):
         turn_on = goal_handle.request.turn_on
+        self.get_logger().info(f"[Action] Received request: turn_on={turn_on}")
+
         status = "Switch ON" if turn_on else "Switch OFF"
         self.get_logger().info(f"[Action] {status}")
 
@@ -22,9 +25,13 @@ class SwitchActionServer(Node):
         feedback_msg.status = status
         goal_handle.publish_feedback(feedback_msg)
 
-        await asyncio.sleep(2)
+        self.get_logger().info("[Action] Processing...")
+
+        asyncio.sleep(2)
 
         goal_handle.succeed()
+        self.get_logger().info(f"[Action] Completed: {status}")
+
         result = SwitchControl.Result()
         result.success = True
         return result
