@@ -104,3 +104,13 @@ pip install ultralytics
 
 pip install numpy==1.26.4
 pip install ultralytics
+
+### ROS2 영상파일 위치
+
+video_pkg/
+├── package.xml
+├── setup.py
+├── resource/          ← 영상 파일 넣기 추천
+│   └── video.mp4
+├── video_publisher.py
+

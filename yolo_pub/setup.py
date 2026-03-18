@@ -27,6 +27,7 @@ setup(
             'cam = yolo_pub.camera_publisher:main',
             'yolo = yolo_pub.yolo_detector.py:main',
             'sub = yolo_pub.result_subscriber:main',
+            'video = yolo_pub.video_publisher:main',
         ],
     },
 )

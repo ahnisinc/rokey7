@@ -3,6 +3,7 @@ from rclpy.node import Node
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge
 import cv2
+import os
 
 
 class VideoPublisher(Node):
@@ -11,7 +12,9 @@ class VideoPublisher(Node):
         super().__init__("video_publisher")
         self.publisher = self.create_publisher(Image, "video_frames", 10)
 
-        self.cap = cv2.VideoCapture("video.mp4")
+        self.cap = cv2.VideoCapture(
+            os.path.join(os.path.dirname(__file__), "resource", "video.mp4")
+        )
 
         if not self.cap.isOpened():
             self.get_logger().error("Failed to open video file")
